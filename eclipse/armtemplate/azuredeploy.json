@@ -216,7 +216,7 @@
                 "autoUpgradeMinorVersion": true,
             "settings": {
                 "fileUris": [
-                    "[concat('https://raw.githubusercontent.com/bayernmunich/Eclipse/', parameters('branch'), '/env/vm.sh')]"
+                    "[concat('https://raw.githubusercontent.com/Microsoft/VSTS-DevOps-Labs/eclipse/eclipse/', parameters('branch'), '/armtemplate/vm.sh')]"
                 ],
                 "commandToExecute": "[concat('bash vm.sh ', parameters('adminUsername'), ' ', resourceGroup().location, ' ', parameters('branch'))]"
             }

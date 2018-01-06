@@ -41,7 +41,7 @@ Once the machine is provisioned, you can RDP to it.
 ## Installing Team Explorer Everywhere
 
 
-We wil install **Team Explorer Everywhere (TEE)**, the official plug-in for Eclipse from Microsoft to connect VSTS/TFS with Eclipse-based IDE on any platform. It is supported on Linux, Mac OS X, and Windows and is compatible with IDEs that are based on Eclipse 4.2 to 4.6. 
+We will install **Team Explorer Everywhere (TEE)**, the official plug-in for Eclipse from Microsoft to connect VSTS/TFS with Eclipse-based IDE on any platform. It is supported on Linux, Mac OS X, and Windows and is compatible with IDEs that are based on Eclipse 4.2 to 4.6. 
 
 With Team Explorer Everywhere, you can:
 * Browse and clone Git repositories
@@ -49,23 +49,30 @@ With Team Explorer Everywhere, you can:
 * Full access to TFS agile tools, work items, and issue tracking capabilities allowing you to add, edit and query work items
 * Full access to TFS Build functionality including the ability to create Ant, Maven, or Gradle based builds in TFS, publish JUnit test results into TFS or Visual Studio Team Services, monitor progress and handle results. This is fully compatible with all Team Foundation Build types including Gated Check-in and Continuous Integration Builds.
 
-1.  Open Eclipse from the Launcher by clicking on the **Eclipse** icon from the panel below
+1.  Open Eclipse from the Launcher by clicking on the **Eclipse** icon from the panel below: 
 
-1. Click **OK** to select the default folder for the workspace
+1. Click **OK** to select the default folder for the workspace:
+
 The plugin can be acquired and installed in the following ways"
 
 1. Eclipse MarketPlace:  The plug-in is freely available on the Eclipse Marketplace -https://marketplace.eclipse.org/content/team-explorer-everywhere. To install it from the marketplace, you can drag the **install** button to a running Eclipse or install it using the Help |Eclipse Marketplace option
 
+1. GitHub Repository:You can also manually download and install the plug-in from the Releases section of this [GitHub](https://github.com/Microsoft/team-explorer-everywhere) repository.
+
+
 1. Eclipse download site:   
    1. Choose **Help** menu | **Install New Software**
-   1. Select **Add**
-   1. In the **Add Repository** dialog, enter **Team Explorer Everywhere** for the name and specify **http://dl.microsoft.com/eclipse/** for the location
-   1. Click **OK**
-   1. This should populate the list of features in the install dialog box.  Select the check box that corresponds to the **Team Explorer Everywhere**
+    ![Install New Software](images2/installnewsoftware.png)
+
+   1. Select **Add**. 1. In the **Add Repository** dialog, enter **Team Explorer Everywhere** for the name and specify **http://dl.microsoft.com/eclipse/** for the location and Click **OK**
+    ![Add Software Install Repo](images2/addrepo.png)
+
+   1. This should populate the list of features in the install dialog box.  Select the check box that corresponds to **Azure Toolkit for Java** and **Team Explorer Everywhere**
+    ![Add Software](images2/addsoftware.png)
+
    1. Choose the **Next** button two times 
    1. The last page of the wizard shows you the **Microsoft Software License Terms**. Select the **Finish** button to accept if you agree with the terms
 
-1. GitHub Repository:You can also manually download and install the plug-in from the Releases section of this [GitHub](https://github.com/Microsoft/team-explorer-everywhere) repository.
 
 Restart Eclipse if required.
 
@@ -94,7 +101,7 @@ The TEE plugin, when installed adds a new perspective **"Team Foundation Server 
 
 ## Working with Queries
 
-1. If you click the **Work Items** tile, you can access the Work Items hub - via **Queries**. Queries make it easy to find and work with sets of work items based on criteria you define. You can access exisiting queries or create a new one.
+1. If you click the **Work Items** tile, you can access the Work Items hub - via **Queries**. Queries make it easy to find and work with sets of work items based on criteria you define. You can access existing queries or create a new one.
 
 1. Right-select **All Work Items** from the **Queries** menu and select **View Results**. The results of the query will open in the editor window.
 
@@ -220,9 +227,26 @@ the results pane by using the **Column Options** dialog.
 
 Visual Studio Team Services supports two different types of version control system a) **Team Foundation Version Control**, a *centralized* SCM and b)**Git**, a pouplar open-source *distributed* version control. If you want to know more on the differences between TFVC and Git, you can refer [this article](https://docs.microsoft.com/en-us/vsts/tfvc/comparison-git-tfvc)
 
- Git is the recommended and default version control for new projects. 
+ We will see how we can work with Git as it is the recommended and default version control for new projects. 
 
+1. From the **Team Explorer Everywhere** view, select **Git Repositories** to see the list of *Git* repositories that you have in the project
+    ![Select Git in TEE](images2/selectgitinteehome.png)
 
+1. Right-select the repository that you want to import and select **Import Repository**. 
+
+1. In the resulting page, select the same repo, change the local path where you want to clone the repo and click **Next**
+
+1. After the code is cloned, go to **Package Explorer**. Right-click and select **New Java Project**
+
+1.  
+
+1. Select **Import**. Select **File System** under **General** 
+    ![Import File System](images2/importfilesystem.png)
+
+1. Select **Next**. Select the **Browse** button next to the **From Directory** dropdown to specify the location of the source that you want to import
+    ![Import Project](images2/importproject.png)
+
+1. 
 
 Install the Exploratory Testing Extension for Chrome
 ----------------------------------------------------

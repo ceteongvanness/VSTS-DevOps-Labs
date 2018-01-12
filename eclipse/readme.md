@@ -2,8 +2,14 @@
 
 VSTS helps teams modernize their application development lifecycle and go from idea to deployment with continuous integration, testing, and deployment for any app targeting any platform. VSTS works with (m)any development tool including Visual Studio, Eclipse, IntelliJ, Android Studio, XCode, etc., to make it easy for developers to use VSTS.
 
-In this exercise, you are going to see a typical end-to-end workflow for a Java developer using VSTS and working with Eclipse. We will install and explore how **Team Explorer Everywhere** helps teams using Eclipse-based IDE to collaborate across teams with Visual Studio Team Services / Team Foundation Server. 
+In this exercise, you are going to see a typical end-to-end workflow for a Java developer using VSTS and working with Eclipse. We will use a hypothetical customer called MyShuttle that provides a portal for its drivers to access travel history and see fares collected. This is a  Java application built on JSP/Servlet technology running on Apache Tomcat and using MySQL as the database. We will develop this on a Ubuntu desktop station and we will deploy the app on Azure.
 
+
+* Provision a VSTS project with some sample data and users 
+* Install and explore how **Team Explorer Everywhere** the Eclipse plugin for VSTS
+* Setup a CI and CD pipeline to deploy a Java application
+* Run a automated test to test and detect issues
+* Fix and redeploy the application
 
 ## Pre-requisites
 
@@ -13,7 +19,7 @@ In this exercise, you are going to see a typical end-to-end workflow for a Java 
 
 ## Provisioning Eclipse VM on Azure
 
-1. Click on **Deploy to Azure** to provision a Ubuntu VM pre-installed with Eclipse. 
+1. Click on **Deploy to Azure** to provision a Ubuntu VM pre-installed with Eclipse, Docker, Jenkins, and all other software required to run this lab.
 
     <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2FVSTS-DevOps-Labs%2Feclipse%2Feclipse%2Farm%2520template%2Fazuredeploy.json" target="_blank">
 <img src="http://azuredeploy.net/deploybutton.png"/>
@@ -23,96 +29,70 @@ In this exercise, you are going to see a typical end-to-end workflow for a Java 
 
 1. Log in with the user name and password provided.
 
-## Scenario Overview
-
-In this lab,you are going to see a typical end-to-end workflow for a Java developer. You will open the running MyShuttle application and discover a bug. You will then use the Exploratory Testing extension to create a Bug work item in VSTS. You will then branch the code for fixing the bug. Once the bug is fixed on the branch, you will merge the code in via a Pull Request and code review. This will then automatically queue the build/release pipeline and your fix will be deployed. We will start setting up a project in Visual Studio Team Services
-
 ## Setting up the project
 
 1. Use <a href="https://vstsdemogenerator.azurewebsites.net" target="_blank">VSTS Demo Data Generator</a> to provision a project on your VSTS account.
 
- ![VSTS Demo Generator](images/vstsdemogen.png)
-
-1. Select **MyShuttle-Java** for the template.
+1. Select the **MyShuttle-Java** for the template.
 
  ![VSTS Demo Generator](images/vstsdemogen.png)
 
 3. Provide a project name and click **Create Project** to start provisioning. Once the project is provisioned, select the URL to navigate to the project that you provisioned.
 
-## 
+1. You will see the work items, source code and CI/CD definitions already populated by the demo generator.
 
+1. Navigate to the **Code** hub. You will notice we have two code repositories - one with the same name as your project that contains the code for the web application and the other one **myshuttlecalc** that has the code for a fare calculator which we will package and use it in the web application.
 
+## Setting up Eclipse
 
-## Installing Team Explorer Everywhere
-
-We will install **Team Explorer Everywhere (TEE)**, the official plug-in for Eclipse from Microsoft to connect VSTS/TFS with Eclipse-based IDE on any platform. It is supported on Linux, Mac OS X, and Windows and is compatible with IDEs that are based on Eclipse 4.2 to 4.6. 
-
-With Team Explorer Everywhere, you can:
-
-* Browse and clone Git repositories
-* Full access to TFS Version Control (TFVC), including check-in, check-out, sync, branch, merge, diff, etc.
-* Full access to TFS agile tools, work items, and issue tracking capabilities allowing you to add, edit and query work items
-* Full access to TFS Build functionality including the ability to create Ant, Maven, or Gradle based builds in TFS, publish JUnit test results into TFS or Visual Studio Team Services, monitor progress and handle results. This is fully compatible with all Team Foundation Build types including Gated Check-in and Continuous Integration Builds.
-
-----
+1. RDP in to the virtual machine
 
 1. Click on the Eclipse icon in the toolbar to open the Eclipse Java IDE.
 
     ![Click Eclipse in the Toolbar](images/click-eclipse.png "Click Eclipse in the Toolbar")
 
-1. The first time you run Eclipse, it will prompt for default workspace. Click on the box "Use this as the default and do not ask again" to use the default workspace on startup.
+1. The first time you run Eclipse, it will prompt for default workspace. Click on the box **"Use this as the default and do not ask again"** to use the default workspace on startup.
 
-    ![Accept the default Eclipse workspace](images/eclipse-defaults.png "Accept the default Eclipse workspace")
+1. We will install **Team Explorer Everywhere (TEE)**, the official plug-in for Eclipse from Microsoft to connect VSTS/TFS with Eclipse-based IDE on any platform. It is supported on Linux, Mac OS X, and Windows and is compatible with IDEs that are based on Eclipse 4.2 to 4.6. 
 
-1. When the Welcome dialog appears, on the Help Menu select Install New Software.
+    With Team Explorer Everywhere, you can:
 
-    ![Click on Help > Install New Software](images/eclipse-install-new-software.png "Click on Help > Install New Software")
+    * Browse and clone Git repositories
+    * Full access to TFS Version Control (TFVC), including check-in, check-out, sync, branch, merge, diff, etc.
+    * Full access to TFS agile tools, work items, and issue tracking capabilities allowing you to add, edit and query work items
+    * Full access to TFS Build functionality including the ability to create Ant, Maven, or Gradle based builds in TFS, publish JUnit test results into TFS or Visual Studio Team Services, monitor progress and handle results. This is fully compatible with all Team Foundation Build types including Gated Check-in and Continuous Integration Builds.
 
-1. Choose the Add button to add a new repository.  Use Team Explorer Everywhere as the name. The location of the update site is http://dl.microsoft.com/eclipse
+1. When the Welcome dialog appears, on the **Help** | **Menu** select **Install New Software**.
+
+1. Choose the **Add** button to add a new repository.  Use Team Explorer Everywhere as the name. The location of the update site is http://dl.microsoft.com/eclipse
 
     ![Add Repository](images/AddRepository.cropped.png "Add Repository")
 
-1. Choose the OK button.
-
-   1. Choose the **Next** button two times
-
-   1. The last page of the wizard shows you the **Microsoft Software License Terms**. Select the **Finish** button to accept if you agree with the terms
+1. Choose the **OK** button.
 
 1. In the list of features in the Install dialog box, select the check box that corresponds to the Team Explorer Everywhere plugin. If you don't see this option, use the pull-down menu for "Work with:" and find the update site URL you just entered in the list and select it, then select the check box beside the plug-in mentioned above.
 
     ![Select Team Explorer Everywhere](images/SelectTee.cropped.png "Select Team Explorer Everywhere")
 
-1.  Choose Next two times. Accept the license agreement and choose Finish
+1.  Choose **Next** to follow the wizard to complelete the installation. 
 
-1.  Eclipse will need to restart.
-
-1. When Eclipse restarts, the Welcome dialog will appear again. Choose Windows > Show View and select Other...
-
-    ![Checkout from Team Services Git](images/showtee.png "Checkout from Team Services Git")
+1.  Eclipse will need to restart. When Eclipse restarts,choose **Windows > Show View** and select **Other...**
 
 1. Search for Team Explorer, select the Team Explorer View, and select OK.
 
     ![Checkout from Team Services Git](images/showtee2.png "Checkout from Team Services Git")
 
-    Choose the radio button next to "Connect to a Team Foundation Server or Team Services account" then press the "Servers..." button. In the "Add/Remove Team Foundation Server" panel, click "Add..." and type in the name of the VSTS account (`https://{your-account-name}.visualstudio.com`) in the "Add Team Foundation Server" panel. Then press the OK button. 
-
-    ![Sign in to VSTS](images/browsevsts.png "Sign in to VSTS")
+1. Choose the radio button next to "Connect to a Team Foundation Server or Team Services account" then type in the name of the VSTS account (`https://{your-account-name}.visualstudio.com`) and press the Next button. 
 
     The "Follow the instructions to complete sign-in" window will pop up. Click on the hyperlink to be redirected to the Device Login page in a browser on the VM (may have a black background for security purposes). 
 
-    ![Sign in to VSTS](images/eclipse-signin.png "Sign in to VSTS")
+1. Log in to authenticate yourself. 
 
-    Copy the code in the text field in Eclipse and paste it into the browser page, then press the "Continue" button. Then sign in with your credentials used to access VSTS. If you get the credentials wrong you can try again by closing Eclipse, deleting ~/.microsoft/Team Explorer/4.0/*, and restarting Eclipse.
-
-    ![Device login](images/browser-devicelogin.png "Device login")
-
-    ![Device login](images/browser-deviceloggedin.png "Device login")
-
-    Back in Eclipse, press the OK button in the device login window. The VSTS account should now show up in the list of servers to connect to. Press the "Close" button to close the current window.
+1. Return back to Eclipse, press the OK button in the device login window. The VSTS account should now show up in the list of servers to connect to. Press the "Close" button to close the current window.
 
     ![Sign in to VSTS](images/eclipse-tfslist.png "Sign in to VSTS")
 
-Clone MyShuttle2 from VSTS with Eclipse
+## Clone MyShuttle2 from VSTS with Eclipse
 -----------------------------
 
 1. Once you have authenticated, click the "Next" button in the "Add Existing Team Project Window" to view team projects in VSTS.

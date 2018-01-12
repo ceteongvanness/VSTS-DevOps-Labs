@@ -41,7 +41,7 @@ In this exercise, you are going to see a typical end-to-end workflow for a Java 
 
 1. You will see the work items, source code and CI/CD definitions already populated by the demo generator.
 
-1. Navigate to the **Code** hub. You will notice we have two code repositories - one with the same name as your project that contains the code for the web application and the other one **myshuttlecalc** that has the code for a fare calculator which we will package and use it in the web application.
+1. Navigate to the **Code** hub. You will notice we have two code repositories - one with the same name as your project that contains the code for the web application and the other one **MyShuttleCalc** - contains the code for a class library  that is used by the MyShuttle2 application..
 
 ## Setting up Eclipse
 
@@ -90,19 +90,10 @@ In this exercise, you are going to see a typical end-to-end workflow for a Java 
 
 1. Return back to Eclipse, press the OK button in the device login window. The VSTS account should now show up in the list of servers to connect to. Press the "Close" button to close the current window.
 
-    ![Sign in to VSTS](images/eclipse-tfslist.png "Sign in to VSTS")
-
 ## Clone MyShuttle2 from VSTS with Eclipse
 -----------------------------
 
-1. Once you have authenticated, click the "Next" button in the "Add Existing Team Project Window" to view team projects in VSTS.
-
-    ![Select the VSTS repo](images/eclipse-add-existingteamproject.png "Select the VSTS repo")
-
-    Select the appropriate team project in Eclipse, then press the "Finish" button.
-    
-    In the Team Explorer Everywhere panel, choose the "Git Repositories" panel, then select the MyShuttle2 repo in the team project and right-click the repo and select "Import Repository."  
-
+1. In the Team Explorer Everywhere panel, choose the **Git Repositories** panel, then select the MyShuttle2 repo in the team project and right-click the repo and select **Import Repository**
     ![Select the VSTS repo](images/eclipse-select-repo.png "Select the VSTS repo")
 
     ![Select the VSTS repo](images/eclipse-select-repo2.png "Select the VSTS repo")
@@ -111,19 +102,15 @@ In this exercise, you are going to see a typical end-to-end workflow for a Java 
 
     ![Select the VSTS repo](images/eclipse-select-repo3.png "Select the VSTS repo")
 
-    In the "Import Projects from Team Foundation Server" window, click the cancel button. We will instead import the project as a Maven project instead of Eclipse project. 
+1. In the **"Import Projects from Team Foundation Server"** window, click the **Cancel** button. We will instead import the project as a Maven project instead of Eclipse project. 
 
     ![Select the VSTS repo](images/eclipse-importprojects.png "Select the VSTS repo")
 
-1. In Eclipse, navigate to File -> Import... to open the "Import" window.
-
-    ![Import the Maven project](images/eclipse-import.png "Import the Maven project")
-
-    In the Import window, expand the Maven folder and choose "Existing Maven projects." Then press the Next button. 
+1. In Eclipse, navigate to **File -> Import...** to open the *Import* window. In the Import window, expand the Maven folder and choose *Existing Maven projects*. Then press the Next button. 
 
     ![Import the Maven project](images/eclipse-import-existingmavenprojects.png "Import the Maven project")
 
-    For the root directory, click on the Browse button or type in the root directory path of /home/vmadmin/MyShuttle2. The pom.xml file should appear under projects to indicate the Maven project. Additionally, click the checkbox next to "Add project(s) to working set" to add myshuttle to the working set to access in the Package Explorer window as a separate project. Then click the Finish button. 
+    For the root directory, click on the Browse button or type in the root directory path of /home/vmadmin/MyShuttle2. The pom.xml file should appear under projects to indicate the Maven project. Additionally, click the checkbox next to **Add project(s) to working set** to add myshuttle to the working set to access in the Package Explorer window as a separate project. Then click the Finish button. 
 
     ![Import the Maven project](images/eclipse-select-mavenproject.png "Import the Maven project")
 
@@ -131,237 +118,81 @@ In this exercise, you are going to see a typical end-to-end workflow for a Java 
 
     ![MyShuttle project](images/eclipse-myshuttle.png "MyShuttle project")
 
-> **Note**: The project will not currently compile and there may be build errors temporarily, since it has a dependency on a library (MyShuttleCalc) that it cannot resolve. You will fix this in the Package Management lab.
+> **Note**: The project will not currently compile and there may be build errors temporarily, since it has a dependency on a library (MyShuttleCalc) that it cannot resolve. You will fix this in the Package Management exercise.
 
-Clone MyShuttleCalc from VSTS with Eclipse
+## Clone MyShuttleCalc from VSTS with Eclipse
 -----------------------------
 
 1. Repeat cloning a repository for MyShuttleCalc.
 
 1. In the Team Explorer Everywhere panel, choose the "Git Repositories" panel, then select the MyShuttleCalc repo in the team project and right-click the repo and select "Import Repository."  
+  
+1. Leave the defaults for the parent directory and repo folder name, then press the next button. This will clone the repo onto the VM.  
 
-    ![Select the VSTS repo](images/eclipse-select-repo.png "Select the VSTS repo")
-
-    ![Select the VSTS repo](images/eclipse-import-myshuttlecalc.png "Select the VSTS repo")
-
-    Leave the defaults for the parent directory and repo folder name, then press the next button. This will clone the repo onto the VM.  
-
-    ![Select the VSTS repo](images/eclipse-select-myshuttlecalc.png "Select the VSTS repo")
-
-    In the "Import Projects from Team Foundation Server" window, click the cancel button. We will instead import the project as a Maven project instead of Eclipse project. 
-
-    ![Select the VSTS repo](images/eclipse-importprojects2.png "Select the VSTS repo") 
+1. In the "Import Projects from Team Foundation Server" window, click the cancel button. We will instead import the project as a Maven project instead of Eclipse project. 
 
 1. In Eclipse, navigate to File -> Import... to open the "Import" window.
 
-    ![Import the Maven project](images/eclipse-import.png "Import the Maven project")
-
 1. In the Import window, expand the Maven folder and choose "Existing Maven projects." Then press the Next button. 
-
-    ![Import the Maven project](images/eclipse-import-existingmavenprojects.png "Import the Maven project")
 
     For the root directory, click on the Browse button or type in the root directory path of /home/vmadmin/MyShuttleCalc. The pom.xml file should appear under projects to indicate the Maven project. Additionally, click the checkbox next to "Add project(s) to working set" to add myshuttle to the working set to access in the Package Explorer window as a separate project. Then click the Finish button. 
 
-    ![Import the Maven project](images/eclipse-select-mavenproject2.png "Import the Maven project")
-
-    1. Click on Window -> Show View -> Package Explorer in the toolbar at the top of Eclipse to view the myshuttle project in Eclipse in Package Explorer. You may have to minimize other windows to view the Package Explorer view cleanly. 
+1. Click on Window -> Show View -> Package Explorer in the toolbar at the top of Eclipse to view the myshuttle project in Eclipse in Package Explorer. You may have to minimize other windows to view the Package Explorer view cleanly. 
 
     ![MyShuttleCalc project](images/eclipse-myshuttlecalc.png "MyShuttleCalc project")
 
-In this task you will install the [Exploratory Testing extension](https://marketplace.visualstudio.com/items?itemName=ms.vss-exploratorytesting-web) into Chrome.
+## Package Management with VSTS
 
-1. Open chrome and navigate to `https://chrome.google.com/webstore`. Enter "exploratory testing" into the search box. Find the "Test & Feedback" extension from Microsoft Corporation and click "Add to Chrome". Click Install in the dialog.
+Next, we will configure a VSTS build to publish the *MyShuttleCalc* package to a VSTS Maven Package feed so that it can be consumed by MyShuttle2 and any other applications that require the calculation code.
 
-   <img src="images/add-ext.png">
+1. In VSTS, click on *Build & Release* and then Packages to go to the Package Hub. Click “+ New Feed” to create a new feed.
 
-1. Once installed, a beaker icon appears in the top right of the Chrome toolbar. Click it to open the UI.
+    ![VSTS Create Feed](images/vsts-create-feed.png "VSTS Create Feed")
 
-1. Click on the gear icon to open the settings. Select "Connected" and enter your VSTS account URL and click Next.
+1. Enter “Maven” for the feed name and click “Create”.
 
-    ![Connect to VSTS](images/e2e-eclipse/connect-to-vsts.png)
+1. Now have a feed that you can publish package to. Next we will create credentials for the Maven feed. In the Packages Hub, make sure you have selected the Maven feed and click **Connect to Feed**. In the left menu, click on **Maven**.
 
-1. Select your team project and expand it and select the default team (which should have the same name as your team project). Click Save.
+1. Click **Generate Maven Credentials** to create a credentials snippet. Click the *Copy to Clipboard* button to copy the snippet to the clipboard.
 
-    ![Select the Team to Connect to](images/e2e-eclipse/select-team.png)
+    ![VSTS Maven Feed](images/maven-creds.png)
 
-    > **Note**: Your team name may be different
+1. Back in Eclipse, open the `MyShuttleCala\maven\settings.xml`
 
-## Configure Branch Policies
+1.  Delete the comment `<!-- paste maven package feed credentials section here !-->` and replace it with the snippet between the `<servers>` and `</servers>` tags so that the final result looks like this:
 
-In this task you will enforce quality on the master branch by creating branch policies.
+1. Press Ctrl-S (or File->Save) and save the file.
 
-1. In Chrome, connect to your VSTS Team Project. Click on Code to open the Code Hub.
+1. In VSTS, go back to the Connect to Feed dialog on your Maven feed. Click on the copy button in the section labeled `Add this feed to your project pom.xml inside the <repositories> tag`.
 
-1. Click the Repo dropdown and select "Manage Repositories".
+1. In your editor, open the `pom.xml` file. Update the `<repositories>` tag as well as the `<distributionManagement>` tag so that they point to your feed.
 
-    ![Manage Repositories](images/e2e-eclipse/manage-repos.png)
+1.  Commit your changes to the repo.
 
-1. In the tree, expand the MyShuttle2 repo and click on the master branch. Click the Branch Policies tab.
+1. **Important**: Copy the maven settings file to the .m2 directory so that local Maven operations will succeed by running the following command in a terminal:
 
-    ![Open branch policies](images/e2e-eclipse/branch-policies.png)
-
-1. Check the Protect this branch checkbox.
-
-1. Check "Check for linked work items" and set the radio to required.
-
-1. Under Build validation, click Add build policy. Select MyShuttle2 from the list of build definitions and click Save.
-
-    ![Policy configuration](images/e2e-eclipse/policy.png)
-
-    > **Note**: You can enforce other policy options like comment resolution and minumum number of reviewers, as well as specify the merge options (like squashing). You can also add default reviewers.
-
-## Log a Bug using the Exploratory Test Extension
-
-In this task you will start a test session, discover a bug in the MyShuttle app and log it to VSTS.
-
-1. In the Test extension toolbar of the Exploratory Test extension, click the Play icon to start a testing session.
-
-    ![Start a test sessions](images/e2e-eclipse/start-test-session.png)
-
-    > **Note**: The test extension is now recording all of your interactions. You can see the test icon beaker has a green dot indicating that a session is currently running.
-
-1. Enter `http://localhost:8081/myshuttledev` in the toolbar to navigate to the application. Enter `fred` for the username and `fredpassword` for the password and click Log In.
-
-    ![Log in to the app](images/e2e-eclipse/login.png)
-
-1. On the Dashboard page, click "Access Your Fare History" to navigate to the fare history page.
-
-1. If you look at the totals for the Fare and Driver column in the table, you will note that the total for the driver column is incorrect.
-
-1. Click the Test Extension beaker icon and click the Camera icon (capture image).
-
-    ![Click Add Screenshot](images/e2e-eclipse/click-camera.png)
-
-1. Capture the grid with the incorrect total. Annotate the image appropriately and click the tick (accept) icon.
-
-    ![Capture an image of the Bug](images/e2e-eclipse/add-screenshot.png)
-
-1. Click the Test Extension beaker icon and click flyout (lower right) of the icon with the page and exclamation mark (new bug). From the menu click Create bug.
-
-    ![Create a new bug](images/e2e-eclipse/new-bug.png)
-
-1. In the title box, enter "Driver total incorrect" and click Save.
-
-    ![Log the Bug](images/e2e-eclipse/log-bug.png)
-
-    > **Note**: All the pages visited, notes, screenshots and other information from the test session is included as details for the Bug, so you don't have to add these details manually. You also should see a button next to the title box reading "0 Similar". VSTS checks to see if there are bugs already logged with similar titles, therefore minimizing duplicate bugs being logged.
-
-1. Once the bug has been created, click the Stop button in the Test Extension toolbar to end the test session.
-
-1. Navigate to your VSTS team project. Click Work to navigate to the Work Hub. In the toolbar, enter "driver" into the Search Work Items box and press enter or click the magnifying glass icon.
-
-    ![Search for the Bug](images/e2e-eclipse/search-bug.png)
-
-1. You should see the Bug that you logged. Take a moment to look at the Repro Steps.
-
-    ![Bug details](images/e2e-eclipse/bug-details.png)
-
-1. Assign the Bug to yourself and change the state to Active. Click Save.
-
-    ![Assign the Bug](images/e2e-eclipse/assign-bug.png)
-
-## Fix the Bug
-
-In this task you will create a branch of the code to fix the Bug. You will then checkout the branch, fix the bug and commit the code. You will then create a Pull Request to merge the fix into master and see that this triggers the CI/CD pipeline to automatically deploy the fix to the dev environment.
-
->Note: Use the personal access token (PAT) generated from the "Set up a Docker Build" lab that should be located at: `home/vmadmin/pat.txt`. Otherwise, follow the instructions from that lab again to generate a new PAT.
-
-1. Open Eclipse if it is not already open. Open the MyShuttle2 project.
-
-1. In Team Explorer change the drop down to "Work Items".  If the dropdown does not show work items connect to your VSTS account via the Team Explorer Home page.
-
-1. If there are no queries saved in VSTS, a query can be created in Eclipse (but not saved at this time). Right-click on the My Queries folder and select "New Query."
-
-    ![New query](images/e2e-eclipse/newquery.png)
-
-1. Run an existing query by double clicking it to find the bug. Or, right click in the New Query panel and select "Run Query." The output of the query will show the bug. Note the ID value of the bug.
-
-    ![Confirm the bug is correctly assigned and in VSTS](images/e2e-eclipse/findbug.png)
-
-    > **Note**: If you do not see the bug, ensure that it is assigned to you, since by default only work items assigned to you will appear in the work item list.
-
-1. Create a new branch
-
-    ![New branch](images/e2e-eclipse/createbranch.png)
-
-1. In the dialog, change the branch name to "totalsBug" and click Create.
-
-    ![New branch](images/e2e-eclipse/createbranch2.png)
-
-1. In the project view of Eclipse, browse to `src/main/java/com.microsoft.example.servlet` and open the LoginServlet class.
-
-1. Around line 35, you will see what is causing the bug: the `totalDriverFee` is being calculated but the `driverFeeTotal` session attribute is being set to `totalFareForDriver` (this looks like a classic copy/paste error).
-
-    Change this line of code:
-    ```java
-        session.setAttribute("driverFeeTotal", totalFareforDriver);
-    ```
-    to
-    ```java
-        session.setAttribute("driverFeeTotal", totalDriverFee);
+    ```sh
+    cp ~/MyShuttleCalc/maven/settings.xml ~/.m2/
     ```
 
-1. Commit your changes by right clicking the file and selecting Team->Commit. Enter "Fixing totals bug #{ID of bug}" as the commit message. By putting the # symbol followed by an ID of a work item in a commit message, VSTS will automatically associate the work item with the commit when it's pushed to VSTS. In the example of the screenshot, the ID is #698. Click "Commit and Push" to push the changes to VSTS.
+1. **Important**: If you have the MyShuttle2 project already open in IntelliJ or Eclipse, close the instance of the IDE and reopen it.
 
-    ![Commit and Push](images/e2e-eclipse/eclipse-newcommit.png "Commit and Push")
+## Publishing the MyShuttleCalc library to the Maven feed.
 
-1. If a window pops up that prompts for credentials, use the following values:
+Next we will run the **MyShuttleCalc** build to build and publish the MyShuttleCalc library to the Maven feed
 
-    | Name | Value |
-    |---|---|
-    | User | `_VSTS_Code_Access_Token` |
-    | Password | `{PAT that you copied earlier}` |
+1. In VSTS, Click on the **Build & Release** Hub and then click **Builds**
 
-    ![Login to Eclipse](images/packagemanagement/eclipse-login.png)
+1. Select **MyShuttleCalc**. This build definition contains *maven* task with the following settings
 
-    In the Push commits dialog click the Push button.
+    Field | Value | Notes |
+    |---|---|---|
+    | Options | `--settings ./maven/settings.xml` | Required to authenticate when pushing the Maven package to the feed. |
+    | Goal(s) | `deploy -Dbuildversion=$(Build.BuildNumber)` | Tell Maven to publish the package, passing in the build number |
+    | Code Coverage Tool | `JaCoCo` | Change the code coverage format |
+    | Source Files Directory | `src/main` | These files must be included in the coverage results |
 
-1. Now that the fix has been pushed to VSTS on a branch, you can create a Pull Request. This will be done in VSTS following the standard process for pull requests. Under the Code hub, click on Files in the MyShuttle2 repo and there should be a notification that you updated the `totalsBug` branch. Click the link next to it, "Create a pull request."
 
-    ![Create Pull Request](images/e2e-eclipse/pullrequest.png)
+1. Select **Queue new build...**.Accept the defaults to queue the build and wait for the build to complete
 
-1. Then, in the pull request panel, click "Create" to create the pull request. Note that the bug is associated with the commit.
-
-    ![Create Pull Request](images/e2e-eclipse/pullrequest2.png)
-
-1. Once the PR has been created, right-click it in the PR list and click Open in Browser. You should see that the build is running (this is the build mandated by the Branch Policy you set up earlier).
-
-    ![Build is running to validate the PR](images/e2e-eclipse/pr-overview.png)
-
-    > **Note**: If there was a merge conflict, VSTS would warn you on the overview page. If there is no warning to this effect, then Git will be able to auto-merge the PR into the target branch.
-
-    > **Note**: You configured the release to only trigger when successful builds off the master branch are available. Since this build is not building from the master branch, these changes will not yet be deployed.
-
-1. Click on the Files tab to open the file compare. Note the changes.
-
-    ![PR File Compare](images/e2e-eclipse/PR-file-compare.png)
-
-    > **Note**: You can comment on code or files in the PR and have conversations with the team throughout the review process.
-
-1. Click Approve to approve the PR.
-
-1. Now that the policies have been fulfilled, you can complete the PR which will merge the changes into master (the target branch). Click Complete to do the merge.
-
-1. In the dialog, accept the defaults and click Complete merge.
-
-    ![Complete the merge](images/e2e-eclipse/complete-merge.png)
-
-1. The PR completion triggers a new build off the master branch, which in turn will trigger a release. _It also transitions the Bug work item to Resolved_.
-
-1. Click on Builds to watch your build. When the build completes, you will see the unit test and code coverage results as well as SonarQube analysis and quality gates (if you have configured SonarQube integration).
-
-1. Click on Releases and open the latest release which should have triggered off the PR merge build completion event.
-
-1. On the Release Summary page, you will see the linked Bug work item.
-
-    ![Linked work item in Release](images/e2e-eclipse/linked-bug-release.png)
-
-1. Click on commits to see the incoming commits for this release. There is the commit to fix the bug as well as the commit to merge into master.
-
-    ![Linked commits](images/e2e-eclipse/linked-commits.png)
-
-1. Click on the Tests tab to see the test results. The UI tests should be passing.
-
-1. Open the MyShuttle2 app by navigating to `http://localhost:8081/myshuttledev`. Log in again and verify that the totals column is correct and the Bug has been fixed.
-
-    ![The bug has been fixed](images/e2e-eclipse/bug-fixed.png)
+1. When the build completes successfully,  Navigate back to the Maven package feed. There you will see the MyShuttleCalc package.

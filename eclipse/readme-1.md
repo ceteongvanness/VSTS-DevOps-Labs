@@ -37,11 +37,8 @@ In this lab,you are going to see a typical end-to-end workflow for a Java develo
 
  ![VSTS Demo Generator](images/vstsdemogen.png)
 
+
 3. Provide a project name and click **Create Project** to start provisioning. Once the project is provisioned, select the URL to navigate to the project that you provisioned.
-
-## 
-
-
 
 ## Installing Team Explorer Everywhere
 

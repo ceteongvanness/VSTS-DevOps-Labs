@@ -40,18 +40,20 @@ In this lab, you will:
 3. Provide a project name and click **Create Project** to start provisioning. Once the project is provisioned, select the URL to navigate to the project that you provisioned.
 
 1. You will see the work items, source code and CI/CD definitions already populated by the demo generator.
+    ![VSTS Dashboard](images/vstsdashboard.png "MyShuttle Project in VSTS")
 
 1. Navigate to the **Code** hub. You will notice we have two code repositories - one with the same name as your project that contains the code for the web application and the other one **MyShuttleCalc** - contains the code for a class library  that is used by the MyShuttle2 application..
 
+
 ## Setting up Eclipse
 
-1. RDP in to the virtual machine
+1. If you have not already, log in to the virtual machine
 
 1. Click on the Eclipse icon in the toolbar to open the Eclipse Java IDE.
 
     ![Click Eclipse in the Toolbar](images/click-eclipse.png "Click Eclipse in the Toolbar")
 
-1. The first time you run Eclipse, it will prompt for default workspace. Click on the box **"Use this as the default and do not ask again"** to use the default workspace on startup.
+1. The first time you run Eclipse, it will prompt for default workspace. Specify a folder and click on the box **"Use this as the default and do not ask again"** if you want to Eclipse remember it and not prompt it again.
 
 1. We will install **Team Explorer Everywhere (TEE)**, the official plug-in for Eclipse from Microsoft to connect VSTS/TFS with Eclipse-based IDE on any platform. It is supported on Linux, Mac OS X, and Windows and is compatible with IDEs that are based on Eclipse 4.2 to 4.6. 
 
@@ -62,17 +64,19 @@ In this lab, you will:
     * Full access to TFS agile tools, work items, and issue tracking capabilities allowing you to add, edit and query work items
     * Full access to TFS Build functionality including the ability to create Ant, Maven, or Gradle based builds in TFS, publish JUnit test results into TFS or Visual Studio Team Services, monitor progress and handle results. This is fully compatible with all Team Foundation Build types including Gated Check-in and Continuous Integration Builds.
 
-1. When the Welcome dialog appears, on the **Help** | **Menu** select **Install New Software**.
+1. After Eclipse has started, select **Help** | **Install New Software** to bring the install dialog page
 
-1. Choose the **Add** button to add a new repository.  Use Team Explorer Everywhere as the name. The location of the update site is http://dl.microsoft.com/eclipse
+1. Choose the **Add** button to add a new repository.  Use Team Explorer Everywhere as the name and specify *http://dl.microsoft.com/eclipse* for the location  
 
     ![Add Repository](images/AddRepository.cropped.png "Add Repository")
 
 1. Choose the **OK** button.
 
-1. In the list of features in the Install dialog box, select the check box that corresponds to the Team Explorer Everywhere plugin. If you don't see this option, use the pull-down menu for "Work with:" and find the update site URL you just entered in the list and select it, then select the check box beside the plug-in mentioned above.
+1. In the list of features in the Install dialog box, select the check box that corresponds to the Team Explorer Everywhere plugin. 
 
     ![Select Team Explorer Everywhere](images/SelectTee.cropped.png "Select Team Explorer Everywhere")
+
+    >**Note:** If you don't see this option, use the pull-down menu for "Work with:" and find the update site URL you just entered in the list and select it, then select the check box beside the plug-in mentioned above.
 
 1.  Choose **Next** to follow the wizard to complelete the installation. 
 
@@ -90,10 +94,54 @@ In this lab, you will:
 
 1. Return back to Eclipse, press the OK button in the device login window. The VSTS account should now show up in the list of servers to connect to. Press the "Close" button to close the current window.
 
-## Clone MyShuttle2 from VSTS with Eclipse
------------------------------
+## Setup a private VSTS agent
 
-1. In the Team Explorer Everywhere panel, choose the **Git Repositories** panel, then select the MyShuttle2 repo in the team project and right-click the repo and select **Import Repository**
+1. In the VM, open a terminal by clicking on the **Terminal Emulator** icon in the toolbar
+
+1. Enter the following command
+
+    ```sh
+    docker run -e VSTS_ACCOUNT=<account> -e VSTS_TOKEN=<pat> -v /var/run/docker.sock:/var/run/docker.sock --name vstsagent -it vsts/agent
+    ```
+
+    where:
+    - _account_ is your VSTS account name (the bit before .visualstudio.com)
+    - _pat_ is your PAT
+
+    You should see a message indicating "Listening for Jobs":
+
+    > **Note**: This starts a docker container (called vstsagent) that has a VSTS agent running inside it. The agent is connected to your VSTS account and has also mounted the VM Docker socket so that the container can perform Docker operations (like building containers). It is created from a Dockerfile (listed below) that installs PhantomJS for running headless Selenium tests and configures Docker certs and environment variables. You can move this terminal to the side since the container is running interactively, so the prompt you are seeing is actually inside the container. Open a new terminal by clicking on the Terminal Emulator icon in the toolbar.
+
+    ```dockerfile
+    # Dockerfile for custom vsts agent image with phantomjd and docker config
+    FROM microsoft/vsts-agent
+
+    # install phantomjs
+    RUN curl -L https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM.tar.bz2 > $PHANTOM.tar.bz2 && \
+    tar xvjf $PHANTOM.tar.bz2 -C /usr/local/share && \
+    ln -sf /usr/local/share/$PHANTOM/bin/phantomjs /usr/local/share/phantomjs && \
+    ln -sf /usr/local/share/$PHANTOM/bin/phantomjs /usr/local/bin/phantomjs && \
+    ln -sf /usr/local/share/$PHANTOM/bin/phantomjs /usr/bin/phantomjs
+    RUN apt-get update && apt-get install libfontconfig -y
+
+    # configure docker
+    COPY .docker /root/.docker/
+    ENV DOCKER_HOST=tcp://$HOSTNAME:2376 DOCKER_TLS_VERIFY=1
+    ```
+
+    > **Note**: `$HOSTNAME` is a variable that resolves in the setup script that executed when you set up your Azure VM.
+
+1. If your container stops running for some reason, you can run the following commands to restart and attach to it:
+
+    ```sh
+    docker start vstsagent
+    docker attach vstsagent
+    ```
+
+
+## Clone MyShuttle2 from VSTS with Eclipse
+
+1. In the Team Explorer Everywhere panel, choose **Git Repositories** and then select the **MyShuttle2** repo in the team project and right-click the repo and select **Import Repository**
     ![Select the VSTS repo](images/eclipse-select-repo.png "Select the VSTS repo")
 
     ![Select the VSTS repo](images/eclipse-select-repo2.png "Select the VSTS repo")

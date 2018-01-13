@@ -4,12 +4,16 @@ VSTS helps teams modernize their application development lifecycle and go from i
 
 This lab will walk you through a typical end-to-end workflow for a Java developer using VSTS and working with Eclipse. We will use a hypothetical customer called MyShuttle that provides a portal for its drivers to access travel history and see fares collected. This is a  Java application built on JSP/Servlet technology running on Apache Tomcat and using MySQL as the database. We will develop this on a Ubuntu desktop station and we will deploy the app on Azure.
 
-In this lab, you will:
-* Provision a VSTS project with some sample data and users 
-* Install and explore how **Team Explorer Everywhere** the Eclipse plugin for VSTS
-* Setup a CI and CD pipeline to deploy a Java application
-* Run a automated test to test and detect issues
-* Fix and redeploy the application
+In this lab, you will
+
+    * Provision a VSTS project with some sample data and users 
+
+    * Install and explore how **Team Explorer Everywhere** the Eclipse plugin for VSTS
+    * Setup a CI and CD pipeline to deploy a Java application
+    * Run a automated test to test and detect issues
+    * Fix and redeploy the application
+
+**Estimated time to complete the lab:**  1 hour
 
 ## Pre-requisites
 
@@ -17,9 +21,7 @@ In this lab, you will:
 
 1. You need a **Visual Studio Team Services Account** and [Personal Access Token](https://docs.microsoft.com/en-us/vsts/accounts/use-personal-access-tokens-to-authenticate)
 
-## Provisioning Eclipse VM on Azure
-
-1. Click on **Deploy to Azure** to provision a Ubuntu VM pre-installed with Eclipse, Docker, Jenkins, and all other software required to run this lab.
+1. You will need a desktop station. Click on **Deploy to Azure** to provision a Ubuntu VM pre-installed with Eclipse, Docker, Jenkins, and all other software required to run this lab.
 
     <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2FVSTS-DevOps-Labs%2Feclipse%2Feclipse%2Farm%2520template%2Fazuredeploy.json" target="_blank">
 <img src="http://azuredeploy.net/deploybutton.png"/>
@@ -29,7 +31,7 @@ In this lab, you will:
 
 1. Log in with the user name and password provided.
 
-## Setting up the project
+## Exercise 1: Setting up VSTS project
 
 1. Use <a href="https://vstsdemogenerator.azurewebsites.net" target="_blank">VSTS Demo Data Generator</a> to provision a project on your VSTS account.
 
@@ -46,6 +48,7 @@ In this lab, you will:
 
     ![VSTS Code Repo](images/vstscoderepo.png "MyShuttle Code Repositories in VSTS")
 
+Next, we will log in to the virtual machine and set up Eclipse and a private VSTS build agent.
 
 ## Setting up Eclipse
 
@@ -96,7 +99,7 @@ In this lab, you will:
 
 1. Return back to Eclipse, press the OK button in the device login window. The VSTS account should now show up in the list of servers to connect to. Press the "Close" button to close the current window.
 
-## Setup a private VSTS agent
+## Exercise 2: Setup a private VSTS agent
 
 1. In the VM, open a terminal by clicking on the **Terminal Emulator** icon in the toolbar
 
@@ -105,7 +108,6 @@ In this lab, you will:
     ```sh
     docker run -e VSTS_ACCOUNT=<account> -e VSTS_TOKEN=<pat> -v /var/run/docker.sock:/var/run/docker.sock --name vstsagent -it vsts/agent
     ```
-
     where:
     - _account_ is your VSTS account name (the bit before .visualstudio.com)
     - _pat_ is your PAT
@@ -131,7 +133,7 @@ In this lab, you will:
     ENV DOCKER_HOST=tcp://$HOSTNAME:2376 DOCKER_TLS_VERIFY=1
     ```
 
-    > **Note**: `$HOSTNAME` is a variable that resolves in the setup script that executed when you set up your Azure VM.
+    > **Note**: `$HOSTNAME` is a variable that resolves in the setup script that executed when you set up your Azure VM. If Docker is returning an error message "no such host found <vmname>", make sure the host name is is the \etc\hosts file
 
 1. If your container stops running for some reason, you can run the following commands to restart and attach to it:
 
@@ -140,12 +142,12 @@ In this lab, you will:
     docker attach vstsagent
     ```
 
-
-## Clone MyShuttle2 from VSTS with Eclipse
+## Exercise 3: Clone MyShuttle from VSTS with Eclipse
 
 Next, we will clone the two repositories that we have in VSTS, to a local Git repository
 
 1. In the Team Explorer Everywhere panel, choose **Git Repositories** and then select the **MyShuttle2** repo in the team project and right-click the repo and select **Import Repository**
+
     ![Select the VSTS repo](images/eclipse-select-repo.png "Select the VSTS repo")
 
     ![Select the VSTS repo](images/eclipse-select-repo2.png "Select the VSTS repo")
@@ -170,7 +172,9 @@ Next, we will clone the two repositories that we have in VSTS, to a local Git re
 
     ![MyShuttle project](images/eclipse-myshuttle.png "MyShuttle project")
 
-> **Note**: The project will not currently compile and there may be build errors temporarily, since it has a dependency on a library (MyShuttleCalc) that it cannot resolve. You will fix this in the Package Management exercise.
+    > **Note**: The project will not currently compile and there may be build errors temporarily, since it has a dependency on a library (MyShuttleCalc) that it cannot resolve. You will fix this in the Package Management exercise.
+
+### Exercise 3a: Clone the MyShuttleCalc repository
 
 1. Repeat cloning a repository for MyShuttleCalc. Select the **MyShuttleCalc** repo in the team project and right-click the repo and select **Import Repository** 
   
@@ -184,7 +188,7 @@ Next, we will clone the two repositories that we have in VSTS, to a local Git re
 
     ![MyShuttleCalc project](images/eclipse-myshuttlecalc.png "MyShuttleCalc project")
 
-## Package Management with VSTS
+## Exercise 4: Package Management with VSTS
 
 Next, we will configure a VSTS build to publish the *MyShuttleCalc* package to a VSTS Maven Package feed so that it can be consumed by MyShuttle2 and any other applications that require the calculation code.
 

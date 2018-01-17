@@ -99,48 +99,6 @@ Next, we will log in to the virtual machine and set up Eclipse and a private VST
 
 1. Return back to Eclipse, press the OK button in the device login window. The VSTS account should now show up in the list of servers to connect to. Press the "Close" button to close the current window.
 
-## Exercise 2: Setup a private VSTS agent
-
-1. In the VM, open a terminal by clicking on the **Terminal Emulator** icon in the toolbar
-
-1. Enter the following command
-
-    ```sh
-    docker run -e VSTS_ACCOUNT=<account> -e VSTS_TOKEN=<pat> -v /var/run/docker.sock:/var/run/docker.sock --name vstsagent -it vsts/agent
-    ```
-    where:
-    - _account_ is your VSTS account name (the bit before .visualstudio.com)
-    - _pat_ is your PAT
-
-    You should see a message indicating "Listening for Jobs":
-
-    > **Note**: This starts a docker container (called vstsagent) that has a VSTS agent running inside it. The agent is connected to your VSTS account and has also mounted the VM Docker socket so that the container can perform Docker operations (like building containers). It is created from a Dockerfile (listed below) that installs PhantomJS for running headless Selenium tests and configures Docker certs and environment variables. You can move this terminal to the side since the container is running interactively, so the prompt you are seeing is actually inside the container. Open a new terminal by clicking on the Terminal Emulator icon in the toolbar.
-
-    ```dockerfile
-    # Dockerfile for custom vsts agent image with phantomjd and docker config
-    FROM microsoft/vsts-agent
-
-    # install phantomjs
-    RUN curl -L https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM.tar.bz2 > $PHANTOM.tar.bz2 && \
-    tar xvjf $PHANTOM.tar.bz2 -C /usr/local/share && \
-    ln -sf /usr/local/share/$PHANTOM/bin/phantomjs /usr/local/share/phantomjs && \
-    ln -sf /usr/local/share/$PHANTOM/bin/phantomjs /usr/local/bin/phantomjs && \
-    ln -sf /usr/local/share/$PHANTOM/bin/phantomjs /usr/bin/phantomjs
-    RUN apt-get update && apt-get install libfontconfig -y
-
-    # configure docker
-    COPY .docker /root/.docker/
-    ENV DOCKER_HOST=tcp://$HOSTNAME:2376 DOCKER_TLS_VERIFY=1
-    ```
-
-    > **Note**: `$HOSTNAME` is a variable that resolves in the setup script that executed when you set up your Azure VM. If Docker is returning an error message "no such host found <vmname>", make sure the host name is is the \etc\hosts file
-
-1. If your container stops running for some reason, you can run the following commands to restart and attach to it:
-
-    ```sh
-    docker start vstsagent
-    docker attach vstsagent
-    ```
 
 ## Exercise 3: Clone MyShuttle from VSTS with Eclipse
 
@@ -315,4 +273,54 @@ In this task you will create a VSTS build definition that will create two contai
     | Additional Image Tags | `$(Build.BuildNumber)` | Sets a unique tag for each instance of the build |
     | Include Latest Tag | Check (set to true) | Adds the `latest` tag to the images produced by this build |
 
-1. Click the "Save and Queue" button to save and queue this build.
+1. Click the "Save and Queue" button to save and queue this build.Make sure you are using the **Hosted Linux Agent** 
+
+## Deploying to an Azure Web App for containers
+
+In this exercise, we will setup a CD pipeline to deploy the web application to an Azure web app. First, let's create the Web App   
+
+1. Sign into your [Azure Portal](https://portal.azure.com)
+
+1. In the Azure Portal, choose **New, Web + Mobile** and then choose **Web App for Containers**
+
+     ![New Web App for Containers](images/newwebapp.png)
+
+1. Provide a name for the new web app, select existing or create new resource group for the web app. Then select **Configure Container** to specify the source repository for the images. Since we are using ACR to store the images, select **Azure Container Registry**. Select the **Registry, Image and Tag** from the respective drop-downs.Select **OK** and then select **Create** to start provisioning the web app
+
+    ![Creating MyShuttle Web App for Containers](images/myshuttle-webapp.png)
+
+1. Once the provisioning is complete, go to the web app properties page, and select the URL to browse the web app. You should see the default **Tomcat** page
+
+1. Append **/myshuttledev** the web application context path for the app, to the URL to get to the MyShuttle login page. For example if your web app URL is `https://myshuttle-azure.azurewebsites.net/` , then your URL to the login page is `https://myshuttle-azure.azurewebsites.net/myshuttledev/`
+
+    ![Login Page](images/loginpage.png)
+
+    We could configure *Continuous Deployment* to deploy the web app is updated when a new image is pushed to the registry, within the Azure portal itself. However, setting up a VSTS CD pipeline will provide more flexibility and additional controls (approvals, release gates, etc.) for application deployment
+
+1. Back in VSTS, select **Releases** from the **Build and Release**hub. Select **+** and then **Create Release Definition**
+
+1. Select **Pipeline**. Click **+Add** to add the artifacts. Select **Build** for the source type. Select the **Project**, **Source** and the **Default version**.  Finally select **Add** to save the settings
+
+1. Select the **Azure App Service Deployment** template and click **Apply**
+    ![VSTS Add Artifact](images/vsts-cd-addartifact.png)
+
+1. Open the environment. Select **Environment 1** and configure as follows
+
+    * Pick the Azure subscription
+    * Select **Linux App** for the **App Type**
+    * Select the **App Service** that you created
+    * Enter the **Container Registry** name and then
+    * Enter ***Web*** for the **Repository**
+
+    ![VSTS Release Defintion](images/vsts-cd-webapp.png)
+
+1. Select the **Deploy Azure App Service** task and make sure that these settings are reflected correctly. Note that the task allows you to specify the **Tag** that you want to pull. This will allow you to achieve end-to-end traceability from code to deployment by using a build-specific tag for each deployment. For example, with the Docker build tasks  you can tag your images with the Build.ID for each deployment.
+
+    ![Build Tags](images/vsts-buildtag.png)
+
+1. Select **Save** and then click **+ Release | Create Release** to start a new release
+
+1. Check the artifact version you want to use and then select **Create**
+
+1. Wait for the release is complete and then navigate to the URL `http://{your web app name}.azurewebsites.net/myshuttledev`. You should be able to see the login page
+

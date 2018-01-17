@@ -177,7 +177,7 @@ Next, we will configure a VSTS build to publish the *MyShuttleCalc* package to a
 
 1. **Important**: If you have the MyShuttle2 project already open in IntelliJ or Eclipse, close the instance of the IDE and reopen it.
 
-## Publishing the MyShuttleCalc library to the Maven feed.
+## Exercise 4a:  Publishing the MyShuttleCalc library to the Maven feed.
 
 Next we will run the **MyShuttleCalc** build to build and publish the MyShuttleCalc library to the Maven feed
 
@@ -197,7 +197,7 @@ Next we will run the **MyShuttleCalc** build to build and publish the MyShuttleC
 
 1. When the build completes successfully,  Navigate back to the Maven package feed. There you will see the *MyShuttleCalc* package.
 
-## Consuming the Package
+## Exercise 4b: Consuming the Package
 
 Next , we will update the pom.xml file for the MyShuttle2 application so that it can consume the MyShuttleCalc package from the Maven package feed.
 
@@ -243,7 +243,7 @@ Next , we will update the pom.xml file for the MyShuttle2 application so that it
 
 1. Commit and push your changes through Team Explorer Everywhere.
 
-## Create a VSTS Build to Build Docker Images
+## Exercise 5:  Create a VSTS Build to Build Docker Images
 
 In this task you will create a VSTS build definition that will create two containers (a mysql database container as well as a tomcat container for running the MyShuttle2 site). The build will publish the containers to the Azure Container Registry you just created.
 
@@ -252,12 +252,12 @@ In this task you will create a VSTS build definition that will create two contai
     | Parameter | Value | Notes |
     | --------------- | ---------------------------- | ----------------------------------------------------------- |
     | Options | `-DskipITs --settings ./maven/settings.xml` | Skips integration tests during the build |
-    | Server URL | `http://10.0.0.4:8080`  | Selects JaCoCo as the coverage tool |
+    |Code Coverage Tool | JaCoCo | Selects JaCoCo as the coverage tool |
     | Source Files Directory | `src/main` | Sets the source files directory for JaCoCo |
 
-      ![Maven task settings](images/vsts-maven.png)
+      ![Maven task settings](images/vsts-mavensettings.png)
 
-1. Then there is **Copy** and **Publish** tasks
+1. Then there is **Copy** and **Publish** tasks to copy the artifacts to the staging directory from where it will be published to VSTS (or a file share).
 
 1. Next we use the **Docker Compose** task to build and publish the images. The settings of the Docker compose tasks are as follows:
     | Parameter | Value | Notes |

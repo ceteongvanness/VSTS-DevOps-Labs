@@ -44,13 +44,13 @@ In this lab, you will
 1. You will see the work items, source code and CI/CD definitions already populated by the demo generator.
     ![VSTS Dashboard](images/vstsdashboard.png "MyShuttle Project in VSTS")
 
-1. Navigate to the **Code** hub. You will notice we have two code repositories - one with the same name as your project that contains the code for the web application and the other one **MyShuttleCalc** - contains the code for a class library  that is used by the MyShuttle2 application
+1. Navigate to the **Code** hub. You will notice we have two code repositories: One with the same name as your project - this repo contains the code for the web application and the other one **MyShuttleCalc** - contains the code for a class library  that is used by the MyShuttle application
 
     ![VSTS Code Repo](images/vstscoderepo.png "MyShuttle Code Repositories in VSTS")
 
-Next, we will log in to the virtual machine and set up Eclipse and a private VSTS build agent.
+Having VSTS setup, we will now log in to the virtual machine and set up Eclipse 
 
-## Setting up Eclipse
+## Exercise 2: Setting up Eclipse
 
 1. If you have not already, log in to the virtual machine
 
@@ -58,16 +58,9 @@ Next, we will log in to the virtual machine and set up Eclipse and a private VST
 
     ![Click Eclipse in the Toolbar](images/click-eclipse.png "Click Eclipse in the Toolbar")
 
-1. The first time you run Eclipse, it will prompt for default workspace. Specify a folder and click on the box **"Use this as the default and do not ask again"** if you want to Eclipse remember it and not prompt it again.
+1. The first time you run Eclipse, it will prompt you to choose a workspace. Specify a folder and click on the box **"Use this as the default and do not ask again"** if you want to Eclipse use that as default and not prompt you again.
 
-1. We will install **Team Explorer Everywhere (TEE)**, the official plug-in for Eclipse from Microsoft to connect VSTS/TFS with Eclipse-based IDE on any platform. It is supported on Linux, Mac OS X, and Windows and is compatible with IDEs that are based on Eclipse 4.2 to 4.6. 
-
-    With Team Explorer Everywhere, you can:
-
-    * Browse and clone Git repositories
-    * Full access to TFS Version Control (TFVC), including check-in, check-out, sync, branch, merge, diff, etc.
-    * Full access to TFS agile tools, work items, and issue tracking capabilities allowing you to add, edit and query work items
-    * Full access to TFS Build functionality including the ability to create Ant, Maven, or Gradle based builds in TFS, publish JUnit test results into TFS or Visual Studio Team Services, monitor progress and handle results. This is fully compatible with all Team Foundation Build types including Gated Check-in and Continuous Integration Builds.
+1. We will install **Team Explorer Everywhere (TEE)**, the official plug-in for Eclipse from Microsoft to connect VSTS/TFS with Eclipse-based IDE on any platform. It is supported on Linux, Mac OS X, and Windows and is compatible with IDEs that are based on Eclipse 4.2 to 4.6.
 
 1. After Eclipse has started, select **Help** | **Install New Software** to bring the install dialog page
 
@@ -83,28 +76,30 @@ Next, we will log in to the virtual machine and set up Eclipse and a private VST
 
     >**Note:** If you don't see this option, use the pull-down menu for "Work with:" and find the update site URL you just entered in the list and select it, then select the check box beside the plug-in mentioned above.
 
-1.  Choose **Next** to follow the wizard to complelete the installation. 
+1.  Choose **Next** to follow the wizard to complete the installation. 
 
 1.  Eclipse will need to restart. When Eclipse restarts,choose **Windows > Show View** and select **Other...**
 
-1. Search for Team Explorer, select the Team Explorer View, and select OK.
+1. Search for **Team Explorer**, select the **Team Explorer** View, and select **OK**.
 
     ![Checkout from Team Services Git](images/showtee2.png "Checkout from Team Services Git")
 
-1. Choose the radio button next to "Connect to a Team Foundation Server or Team Services account" then type in the name of the VSTS account (`https://{your-account-name}.visualstudio.com`) and press the Next button. 
+1. From the **Team Explorer** view, choose the radio button next to **Connect to a Team Foundation Server or Team Services account** then type in the name of the VSTS account (`https://{your-account-name}.visualstudio.com`) and press the **Next** button
 
-    The "Follow the instructions to complete sign-in" window will pop up. Click on the hyperlink to be redirected to the Device Login page in a browser on the VM (may have a black background for security purposes). 
+    The "Follow the instructions to complete sign-in" window will pop up. Click on the hyperlink to be redirected to the Device Login page in a browser on the VM (Note that link may have a black background for security purposes). 
 
 1. Log in to authenticate yourself. 
 
-1. Return back to Eclipse, press the OK button in the device login window. The VSTS account should now show up in the list of servers to connect to. Press the "Close" button to close the current window.
+1. Return back to Eclipse, press the OK button in the device login window. The VSTS account should now show up in the list of servers to connect to. Press the **Close** button to close the current window.
 
 
-## Exercise 3: Clone MyShuttle from VSTS with Eclipse
+## Exercise 3a: Clone MyShuttle from VSTS with Eclipse
 
-Next, we will clone the two repositories that we have in VSTS, to a local Git repository
+Next, we will clone the two repositories that we have in VSTS, to a local Git repository. First, lets clone the repo that has the web application code.
 
-1. In the Team Explorer Everywhere panel, choose **Git Repositories** and then select the **MyShuttle2** repo in the team project and right-click the repo and select **Import Repository**
+1. In the **Team Explorer** panel, choose **Git Repositories**. This will list all the Git repositories in the project. 
+
+1. Right-click the **MyShuttle2** repo in the team project and select **Import Repository**
 
     ![Select the VSTS repo](images/eclipse-select-repo.png "Select the VSTS repo")
 
@@ -114,25 +109,25 @@ Next, we will clone the two repositories that we have in VSTS, to a local Git re
 
     ![Select the VSTS repo](images/eclipse-select-repo3.png "Select the VSTS repo")
 
-1. In the **"Import Projects from Team Foundation Server"** window, click the **Cancel** button. We will instead import the project as a Maven project instead of Eclipse project. 
+1. We do not have any saved Eclipse projects in the repo. So, we can close the wizard now. We will instead import the project as a Maven project instead of Eclipse project. In the **"Import Projects from Team Foundation Server"** window, click the **Cancel** button.
 
     ![Select the VSTS repo](images/eclipse-importprojects.png "Select the VSTS repo")
 
-1. In Eclipse, navigate to **File -> Import...** to open the *Import* window. In the Import window, expand the Maven folder and choose *Existing Maven projects*. Then press the Next button. 
+1. The code has been cloned to the local repo. We can import from there. In Eclipse, choose **File -> Import...** to open the *Import* window. In the Import window, expand the Maven folder and choose **Existing Maven projects**. Then press the Next button. 
 
     ![Import the Maven project](images/eclipse-import-existingmavenprojects.png "Import the Maven project")
 
-    For the root directory, click on the Browse button or type in the root directory path of /home/vmadmin/MyShuttle2. The pom.xml file should appear under projects to indicate the Maven project. Additionally, click the checkbox next to **Add project(s) to working set** to add myshuttle to the working set to access in the Package Explorer window as a separate project. Then click the Finish button. 
+    For the root directory, click on the Browse button or type in the root directory path of /home/vmadmin/MyShuttle2. The pom.xml file should appear under projects to indicate the Maven project. Additionally, click the checkbox next to **Add project(s) to working set** to add myshuttle to the working set to access in the Package Explorer window as a separate project. Then click the Finish button
 
     ![Import the Maven project](images/eclipse-select-mavenproject.png "Import the Maven project")
 
-1. Click on Window -> Show View -> Package Explorer in the toolbar at the top of Eclipse to view the myshuttle project in Eclipse in Package Explorer. You may have to minimize other windows to view the Package Explorer view cleanly. 
+1. Click on **Window -> Show View -> Package Explorer** in the toolbar at the top of Eclipse to view the myshuttle project in Eclipse in Package Explorer (You may have to minimize other windows to view the Package Explorer view cleanly)
 
     ![MyShuttle project](images/eclipse-myshuttle.png "MyShuttle project")
 
     > **Note**: The project will not currently compile and there may be build errors temporarily, since it has a dependency on a library (MyShuttleCalc) that it cannot resolve. You will fix this in the Package Management exercise.
 
-### Exercise 3a: Clone the MyShuttleCalc repository
+### Exercise 3b: Clone the MyShuttleCalc repository
 
 1. Repeat cloning a repository for MyShuttleCalc. Select the **MyShuttleCalc** repo in the team project and right-click the repo and select **Import Repository** 
   

@@ -60,7 +60,7 @@ Having VSTS setup, we will now log in to the virtual machine and set up Eclipse
 1. Return back to Eclipse, press the OK button in the device login window. The VSTS account should now show up in the list of servers to connect to. Press the **Close** button to close the current window.
 <table width="100%">
 <tr width="100%">
-<td align="left"><a href="../vstsproject/">Prev: Overview </a></td>
-<td align="right"><a href="../vstsproject/">Next: Setting up VSTS Project and Eclipse</a></td>
+<td align="left"><a href="../">Prev: Overview </a></td>
+<td align="right"><a href="../clonegit/">Next: Cloning Git Repositories</a></td>
 </tr>
 </table>

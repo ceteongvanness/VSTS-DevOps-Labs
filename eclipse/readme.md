@@ -34,6 +34,6 @@ In this lab, you will
 
 <table width="100%">
 <tr width="100%">
-<td align="right"><a href="../vstsproject/">Next: Package Management with VSTS</a></td>
+<td align="right"><a href="vstsproject/">Next: Package Management with VSTS</a></td>
 </tr>
 </table>

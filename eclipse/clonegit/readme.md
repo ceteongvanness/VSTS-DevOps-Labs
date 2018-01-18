@@ -51,6 +51,6 @@ Next, we will clone the two repositories that we have in VSTS, to a local Git re
 <table width="100%">
 <tr width="100%">
 <td align="left"><a href="../vstsproject/">Prev: Setting up VSTS Project and Eclipse</a></td>
-<td align="right"><a href="../vstsproject/">Next: Package Management with VSTS</a></td>
+<td align="right"><a href="../packagemgmt/">Next: Package Management with VSTS</a></td>
 </tr>
 </table>

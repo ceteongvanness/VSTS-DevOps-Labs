@@ -1,7 +1,7 @@
 
 1. Select the **Deploy Azure App Service** task and make sure that these settings are reflected correctly. Note that the task allows you to specify the **Tag** that you want to pull. This will allow you to achieve end-to-end traceability from code to deployment by using a build-specific tag for each deployment. For example, with the Docker build tasks  you can tag your images with the Build.ID for each deployment.
 
-    ![Build Tags](images/vsts-buildtag.png)
+    ![Build Tags](../images/vsts-buildtag.png)
 
 1. Select **Save** and then click **+ Release | Create Release** to start a new release
 

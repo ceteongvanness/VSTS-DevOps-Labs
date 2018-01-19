@@ -97,31 +97,36 @@ In this task you will enforce quality on the master branch by creating branch po
 
 In this task you will create a branch of the code to fix the Bug. You will then checkout the branch, fix the bug and commit the code. You will then create a Pull Request to merge the fix into master and see that this triggers the CI/CD pipeline to automatically deploy the fix to the dev environment.
 
->Note: Use the personal access token (PAT) generated from the "Set up a Docker Build" lab that should be located at: `home/vmadmin/pat.txt`. Otherwise, follow the instructions from that lab again to generate a new PAT.
+1. Open Eclipse if it is not already open. Open the MyShuttleDocker project.
 
-1. Open Eclipse if it is not already open. Open the MyShuttle2 project.
+1. In *Team Explorer* change the drop down to **Work Items**.  If the dropdown does not show work items connect to your VSTS account via the Team Explorer Home page.
 
-1. In Team Explorer change the drop down to "Work Items".  If the dropdown does not show work items connect to your VSTS account via the Team Explorer Home page.
-
-1. If there are no queries saved in VSTS, a query can be created in Eclipse (but not saved at this time). Right-click on the My Queries folder and select "New Query."
+1. If there are no queries saved in VSTS, a query can be created in Eclipse (but not saved at this time). Right-click on the My Queries folder and select **New Query**
 
     ![New query](images/newquery.png)
 
-1. Run an existing query by double clicking it to find the bug. Or, right click in the New Query panel and select "Run Query." The output of the query will show the bug. Note the ID value of the bug.
+1. You can run an existing query by double clicking it. Double click **Bugs** to get the list of bugs in the project.  
 
-    ![Confirm the bug is correctly assigned and in VSTS](images/findbug.png)
+    ![Confirm the bug is correctly assigned and in VSTS](images/getbugsquery.png)
 
-    > **Note**: If you do not see the bug, ensure that it is assigned to you, since by default only work items assigned to you will appear in the work item list.
+1. Select the **Driver total incorrect** bug and double click to open it in a browser.
 
-1. Create a new branch
+1. You can select the Ellipsis  button `...` and select **New branch...** to create a new branch.
 
+    ![New branch](images/newbranch.png)
+
+1. In the dialog, change the branch name to **fixtotalsBug** and click Create Branch. Note that the work item is already associated to the branch
     ![New branch](images/createbranch.png)
 
-1. In the dialog, change the branch name to "totalsBug" and click Create.
+1. Return back to Eclipse. In the project view of Eclipse,right-select the project, choose **Team** and then **pull** to fetch the latest changes, including the new branch just created.
+    ![Fetch Changes](images/gitpull.png)
 
-    ![New branch](images/createbranch2.png)
+1. To switch to the new branch, select **Team** , **Switch to...**  and select **Other**
+    ![Switch to branch](images/switchto.png)
 
-1. In the project view of Eclipse, browse to `src/main/java/com.microsoft.example.servlet` and open the LoginServlet class.
+1. Expand **Remote Tracking** and select the **origin/fixtotalbugs** branch and click **Check Out**. In the resulting dialog, choose **Check out as a local branch** option.  
+
+ 1. Browse to `src/main/java/com.microsoft.example.servlet` and open the LoginServlet class.
 
 1. Around line 35, you will see what is causing the bug: the `totalDriverFee` is being calculated but the `driverFeeTotal` session attribute is being set to `totalFareForDriver` (this looks like a classic copy/paste error).
 

@@ -1,4 +1,4 @@
-# Working with Eclipse
+# Working with Eclipse - Getting started
 
 Visual Studio Team Services  helps teams modernize their application development lifecycle and go from idea to deployment with continuous integration, testing, and deployment for any app targeting any platform. 
 
@@ -237,7 +237,7 @@ In this exercise, we will setup a CD pipeline to deploy the web application to a
 
 1. Next, navigate to the Web app that you have created. Click **Application Settings** and scroll down to the **Connection Strings** section
 
-1. Add a new MySQL connection string with **MyShuttleDb** as the name and the following string for the value - `jdbc:mysql://{MySQL Server Name}:3306/alm?useSSL=true&requireSSL=false&user={your user name}&password={your password}`
+1. Add a new MySQL connection string with **MyShuttleDb** as the name and the following string for the value - `jdbc:mysql://{MySQL Server Name}:3306/alm?useSSL=true&requireSSL=false&autoReconnect=true&user={your user name}&password={your password}`
 
 1. Click **Save** to save the connection string
 
@@ -254,4 +254,8 @@ You have now setup and configured the database needed to deploy and run the MySh
     * *wilma/wilmapassword*
     * *betty/bettypassword* 
 
+## Next: End to End workflow with Eclipse
 
+In the next exercise, you are going to see a typical end-to-end workflow, from bug identification to fixing and deploying it , for a Java developer using Eclipse
+
+Continue to [End to End workflow with Eclipse](e2eeclipse/)

@@ -101,7 +101,7 @@ In this task you will create a branch of the code to fix the Bug. You will then 
 
 1. In *Team Explorer* change the drop down to **Work Items**.  If the dropdown does not show work items connect to your VSTS account via the Team Explorer Home page.
 
-1. If there are no queries saved in VSTS, a query can be created in Eclipse (but not saved at this time). Right-click on the My Queries folder and select **New Query**
+1. If there are no queries saved in VSTS, a query can be created in Eclipse. Right-click on the My Queries folder and select **New Query**
 
     ![New query](images/newquery.png)
 
@@ -139,7 +139,7 @@ In this task you will create a branch of the code to fix the Bug. You will then 
         session.setAttribute("driverFeeTotal", totalDriverFee);
     ```
 
-1. Commit your changes by right clicking the file and selecting Team->Commit. Enter "Fixing totals bug #{ID of bug}" as the commit message. By putting the # symbol followed by an ID of a work item in a commit message, VSTS will automatically associate the work item with the commit when it's pushed to VSTS. In the example of the screenshot, the ID is #698. Click "Commit and Push" to push the changes to VSTS.
+1. Save the file.  Commit the changes by right clicking the file and selecting Team->Commit. Enter "Fixing totals bug #{ID of bug}" as the commit message. By putting the # symbol followed by an ID of a work item in a commit message, VSTS will automatically associate the work item with the commit when it's pushed to VSTS. In the example of the screenshot, the ID is #26105. Click "Commit and Push" to push the changes to VSTS.
 
     ![Commit and Push](images/eclipse-newcommit.png)
 
@@ -148,13 +148,13 @@ In this task you will create a branch of the code to fix the Bug. You will then 
     | Name | Value |
     |---|---|
     | User | `_VSTS_Code_Access_Token` |
-    | Password | `{PAT that you copied earlier}` |
+    | Password | `{PAT that you have created earlier for the demo generator}` |
 
     ![Login to Eclipse](images/eclipse-login.png)
 
     In the Push commits dialog click the Push button.
 
-1. Now that the fix has been pushed to VSTS on a branch, you can create a Pull Request. This will be done in VSTS following the standard process for pull requests. Under the Code hub, click on Files in the MyShuttle2 repo and there should be a notification that you updated the `totalsBug` branch. Click the link next to it, "Create a pull request."
+1. Now that the fix has been pushed to VSTS on a branch, you can create a *Pull Request. This will be done in VSTS following the standard process for pull requests. Under the **Code** hub, click on Files in the MyShuttleDocker repo and there should be a notification that you updated the `fixtotalsBug` branch. Click the link next to it, **Create a pull request**
 
     ![Create Pull Request](images/pullrequest.png)
 
@@ -176,11 +176,11 @@ In this task you will create a branch of the code to fix the Bug. You will then 
 
     > **Note**: You can comment on code or files in the PR and have conversations with the team throughout the review process.
 
-1. Click Approve to approve the PR.
+1. Click **Approve** to approve the pull request.
 
-1. Now that the policies have been fulfilled, you can complete the PR which will merge the changes into master (the target branch). Click Complete to do the merge.
+1. Now that the policies have been fulfilled, you can complete the PR which will merge the changes into *master* (the target branch). Click **Complete** to do the merge.
 
-1. In the dialog, accept the defaults and click Complete merge.
+1. In the dialog, accept the defaults and click **Complete merge**
 
     ![Complete the merge](images/complete-merge.png)
 

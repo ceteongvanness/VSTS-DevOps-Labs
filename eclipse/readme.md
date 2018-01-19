@@ -33,7 +33,7 @@ In this lab, you will
 
 ## Exercise 1: Setting up VSTS project
 
-1. Use <a href="https://vstsdemogenerator.azurewebsites.net" target="_blank">VSTS Demo Data Generator</a> to provision a project on your VSTS account.
+1. Use <a href="https://vstsdemobuildertest.azurewebsites.net/?TemplateId=77373&Name=myshuttledocker" target="_blank">VSTS Demo Data Generator</a> to provision a project on your VSTS account.
 
 1. Select the **MyShuttle-Java** for the template.
 

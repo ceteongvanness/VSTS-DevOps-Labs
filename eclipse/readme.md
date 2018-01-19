@@ -6,8 +6,9 @@ VSTS works with (m)any development tool including Visual Studio, Eclipse, Intell
 
 This lab will walk you through a typical end-to-end workflow for a Java developer using VSTS and working with Eclipse. We will use a hypothetical customer called MyShuttle that provides a portal for its drivers to access travel history and see fares collected. This is a  Java application built on JSP/Servlet technology running on Apache Tomcat and using MySQL as the database. We will develop this on a Ubuntu desktop station and we will deploy the app on Azure.
 
-In this lab, you will   
-* Provision a VSTS project with some sample data and users 
+In this lab, you will
+
+* Provision a VSTS project with some sample data and users
 * Provision a Ubuntu based VM with Eclipse installed
 * Install and explore **Team Explorer Everywhere** , the VSTS plug-in for Eclipse
 * Setup a build definition to build and test the code, then push it to a Azure Container Registry
@@ -93,7 +94,7 @@ Having VSTS setup, we will now log in to the virtual machine and set up Eclipse
 
 ## Exercise 3: Clone MyShuttle from VSTS with Eclipse
 
-Next, we will clone the VSTS remote Git repository to a local Git repository and import the code to a project in Eclipse 
+Next, we will clone the VSTS Git repository to a local Git repository and import the code to a project in Eclipse 
 
 1. In the **Team Explorer** panel, choose **Git Repositories**. This will list all the Git repositories in the project. 
 
@@ -107,7 +108,7 @@ Next, we will clone the VSTS remote Git repository to a local Git repository and
 
     ![Select the VSTS repo](images/eclipse-select-repo3.png "Select the VSTS repo")
 
-1. We do not have any saved Eclipse projects in the repo. So, we can close the wizard now. We will instead import the project as a Maven project instead of Eclipse project. In the **"Import Projects from Team Foundation Server"** window, click the **Cancel** button.
+1. We do not have any saved Eclipse projects in the repo. So, we can close the wizard now. We will import the project as a Maven project instead of Eclipse project. In the **"Import Projects from Team Foundation Server"** window, click the **Cancel** button.
 
     ![Select the VSTS repo](images/eclipse-importprojects.png "Select the VSTS repo")
 
@@ -198,4 +199,59 @@ In this exercise, we will setup a CD pipeline to deploy the web application to a
 1. Check the artifact version you want to use and then select **Create**
 
 1. Wait for the release is complete and then navigate to the URL `http://{your web app name}.azurewebsites.net/myshuttledev`. You should be able to see the login page
+
+## Setting up MySQL database
+
+ Next, let's set up the MySQL database for the application
+
+ 1. From the Azure portal, select **+ New** and search for **MySQL**. Choose **Azure Database for MySQL(preview)** from the filtered result list and click **Create**
+
+    ![Azure Database MySQL](images/azuredbmysql.png)
+
+ 1. Enter all required information and select **Create**
+
+    ![Azure Database MySQL](images/createazuredbmysql.png)
+
+ 1. Select **Properties**. Note down **SERVER NAME** and **SERVER ADMIN LOGIN NAME**
+
+ 1. In this example, the server name is *myshuttle-1-mysqldbserver.mysql.database.azure.com* and the admin user name is *mysqldbuser@myshuttle-1-mysqldbserver*
+
+ 1. We will use the MySQL command-line tool to establish a connection to the Azure Database for MySQL server. We will run the MySQL command-line tool from the Azure Cloud Shell in the browser.To launch the Azure Cloud Shell, click the `>_` icon in the top right toolbar.
+
+ 1. Enter the following command
+
+    ```HTML
+    wget https://raw.githubusercontent.com/hsachinraj/azure-arm-templates/master/vstsazurejl_arm/mydbscript.script
+    ```
+    This should download the file that we want to execute on the server
+
+1. Next, we will execute the SQL from the downloaded file on the database server. Enter the following command
+    ````SQL
+    mysql -h myshuttle-1-mysqldbserver.mysql.database.azure.com -u mysqldbuser@myshuttle-1-mysqldbserver -p < mydbscript.script
+    ````
+    Enter the password that you specified during provisioning the database
+
+    ![Creating DB](images/createdatabase.png)
+
+    >This should create the database, tables and populate records for us.
+
+1. Next, navigate to the Web app that you have created. Click **Application Settings** and scroll down to the **Connection Strings** section
+
+1. Add a new MySQL connection string with **MyShuttleDb** as the name and the following string for the value - `jdbc:mysql://{MySQL Server Name}:3306/alm?useSSL=true&requireSSL=false&user={your user name}&password={your password}`
+
+1. Click **Save** to save the connection string
+
+   >**Note** - Connection Strings configured here will be available as environment variables, prefixed with connection type for Java apps (also for PHP, Python and Node apps). In the `DataAccess.java`file under `src/main/java/com/microsoft/example` folder, we retrieve the connection string using the following code
+    ````Java
+    String conStr = System.getenv("MYSQLCONNSTR_MyShuttleDb");
+    ````
+
+You have now setup and configured the database needed to deploy and run the MyShuttle application.
+
+1. You should be able to login to the application now. Return back to the login page and try logging is using any of the username/password combination:
+
+    * *fred/fredpassword*
+    * *wilma/wilmapassword*
+    * *betty/bettypassword* 
+
 

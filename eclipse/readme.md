@@ -132,9 +132,15 @@ Next, we will clone the VSTS Git repository to a local Git repository and import
 
 ## Exercise 5:  Create a VSTS Build to Build Docker Images
 
-In this task you will create a VSTS build definition that will create two containers (a mysql database container as well as a tomcat container for running the MyShuttle2 site). The build will publish the containers to the Azure Container Registry you just created.
+In this task you will configure the VSTS build definition that will build and push the image to an Azure Container Registry
 
-1. In VSTS, from the **Build** hub, select and edit the **MyShuttle** build. This build definition contains a *maven* task to build the pom.xml file. The maven task has the following settings
+1. Open the [**Azure Portal**](https://portal,azure.com) in a separate tab
+
+1. Select **+New** and search for **Azure Container**. Select **Create**. In the *Create Container Registry* dialog, enter a name for the service, select the resource group, location, etc., and select **Create**.  
+
+    ![Create Azure Container Registry](images/createacr.png)
+
+1. Return to  VSTS, from the **Build** hub, select and edit the **MyShuttle** build. This build definition contains a *maven* task to build the pom.xml file. The maven task has the following settings
 
     | Parameter | Value | Notes |
     | --------------- | ---------------------------- | ----------------------------------------------------------- |
@@ -157,9 +163,13 @@ In this task you will create a VSTS build definition that will create two contai
 
 1. Click the "Save and Queue" button to save and queue this build.Make sure you are using the **Hosted Linux Agent** 
 
+1. The build will push the image to the ACR we created earlier. We can verify if the images were pushed correctly from the **Azure Explorer** view. *Sign in* to Azure, refresh Azure Container Registry. Right click and select **Explore Container Registry**. You should see the image - tagged with the build number.
+
+    ![Explore Container Registry](images/exploreacr.png)
+
 ## Deploying to an Azure Web App for containers
 
-In this exercise, we will setup a CD pipeline to deploy the web application to an Azure web app. First, let's create the Web App   
+In this exercise, we will setup a CD pipeline to deploy the web application to an Azure web app. First, let's create the Web App
 
 1. Sign into your [Azure Portal](https://portal.azure.com)
 

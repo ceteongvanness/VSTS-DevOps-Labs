@@ -272,6 +272,6 @@ You have now setup and configured the database needed to deploy and run the MySh
 
 ## Next: End to End workflow with Eclipse
 
-In the next exercise, you are going to see a typical end-to-end workflow, from bug identification to fixing and deploying it , for a Java developer using Eclipse
+In the next part of the lab, you are going to see a typical end-to-end workflow for a Java developer using Eclipse. The version that you just deployed has an issue. Assuming the issue has been reported, you will go test it, file a bug, then find the cause and fix the bug. 
 
-Continue to [End to End workflow with Eclipse](e2eeclipse/)
+Continue to [Part 2: End to End workflow with Eclipse](e2eeclipse/)

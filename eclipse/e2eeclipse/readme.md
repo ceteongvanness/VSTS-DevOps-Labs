@@ -2,9 +2,9 @@
 
 In this exercise, you are going to see a typical end-to-end workflow for a Java developer. 
 
-You should have completed the exercises in ["Working with Eclipse - Getting started"](../) labs to create a Team Project, set up Eclipse., configure a CI/CD pipeline to publish images to ACR and deploy the application to Azure Web App. 
+You should have completed the exercises in [Part 1: Working with Eclipse - Getting started](../) labs to create a Team Project, set up Eclipse., configure a CI/CD pipeline to publish images to ACR and deploy the application to Azure Web App. 
 
-In this scenario, you will open the running MyShuttle application and discover a bug. You will then use the [Exploratory Testing extension](https://marketplace.visualstudio.com/items?itemName=ms.vss-exploratorytesting-web) to create a Bug work item in VSTS. You will then branch the code for fixing the bug. Once the bug is fixed on the branch, you will merge the code in via a Pull Request and code review. This will then automatically queue the build/release pipeline and your fix will be deployed.
+In this scenario, you will open the running MyShuttle application and discover a bug. You will then use the [Exploratory Testing extension](https://marketplace.visualstudio.com/items?itemName=ms.vss-exploratorytesting-web) to create a Bug work item in VSTS. You will then branch the code for fixing the bug. Once the bug is fixed on the branch, you will merge the code in via a Pull Request and code review. This will then automatically queue the build/release pipeline and deploy your fix.
 
 
 ## Install the Exploratory Testing Extension for Chrome

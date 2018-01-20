@@ -139,26 +139,15 @@ In this task you will create a branch of the code to fix the Bug. You will then 
         session.setAttribute("driverFeeTotal", totalDriverFee);
     ```
 
-1. Save the file.  Commit the changes by right clicking the file and selecting Team->Commit. Enter "Fixing totals bug #{ID of bug}" as the commit message. By putting the # symbol followed by an ID of a work item in a commit message, VSTS will automatically associate the work item with the commit when it's pushed to VSTS. In the example of the screenshot, the ID is #26105. Click "Commit and Push" to push the changes to VSTS.
+1. Save the file.  Commit the changes by right clicking the file and selecting **Team->Commit**. Enter *Fixing totals bug #{ID of bug}* as the commit message. By putting the # symbol followed by an ID of a work item in a commit message, VSTS will automatically associate the work item with the commit when it's pushed to VSTS. In the example of the screenshot, the ID is #26105. Click **Commit and Push**to push the changes to VSTS.
 
     ![Commit and Push](images/eclipse-newcommit.png)
-
-1. If a window pops up that prompts for credentials, use the following values:
-
-    | Name | Value |
-    |---|---|
-    | User | `_VSTS_Code_Access_Token` |
-    | Password | `{PAT that you have created earlier for the demo generator}` |
-
-    ![Login to Eclipse](images/eclipse-login.png)
-
-    In the Push commits dialog click the Push button.
 
 1. Now that the fix has been pushed to VSTS on a branch, you can create a *Pull Request. This will be done in VSTS following the standard process for pull requests. Under the **Code** hub, click on Files in the MyShuttleDocker repo and there should be a notification that you updated the `fixtotalsBug` branch. Click the link next to it, **Create a pull request**
 
     ![Create Pull Request](images/pullrequest.png)
 
-1. Then, in the pull request panel, click "Create" to create the pull request. Note that the bug is associated with the commit.
+1. Then, in the pull request panel, click **Create** to create the pull request. Note that the bug is associated with the commit.
 
     ![Create Pull Request](images/pullrequest2.png)
 

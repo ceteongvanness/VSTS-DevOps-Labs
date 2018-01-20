@@ -187,8 +187,6 @@ In this task you will create a branch of the code to fix the Bug. You will then 
 
     ![Linked commits](images/linked-commits.png)
 
-1. Click on the Tests tab to see the test results. The UI tests should be passing.
-
-1. Open the MyShuttle2 app by navigating to `http://localhost:8081/myshuttledev`. Log in again and verify that the totals column is correct and the Bug has been fixed.
+1. Return to the MyShuttle application.  Log in again and verify that the totals column is correct and the Bug has been fixed.
 
     ![The bug has been fixed](images/bug-fixed.png)

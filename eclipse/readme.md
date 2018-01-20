@@ -1,6 +1,6 @@
 # Working with Eclipse - Getting started
 
-Visual Studio Team Services  helps teams modernize their application development lifecycle and go from idea to deployment with continuous integration, testing, and deployment for any app targeting any platform. 
+Visual Studio Team Services (VSTS)  helps teams modernize their application development lifecycle and go from idea to deployment with continuous integration, testing, and deployment for any app targeting any platform. 
 
 VSTS works with (m)any development tool including Visual Studio, Eclipse, IntelliJ, Android Studio, XCode, etc., to make it easy for developers to use VSTS.
 
@@ -8,9 +8,10 @@ This lab will walk you through a typical end-to-end workflow for a Java develope
 
 In this lab, you will
 
-* Provision a VSTS project with some sample data and users
-* Provision a Ubuntu based VM with Eclipse installed
-* Install and explore **Team Explorer Everywhere** , the VSTS plug-in for Eclipse
+* Provision a Team Services project with some sample data and users
+* Provision a Ubuntu VM with Eclipse installed
+* Install and explore **Team Explorer Everywhere**, the VSTS plug-in for Eclipse
+* Install and explore **Azure Toolkit for Eclipse**
 * Setup a build definition to build and test the code, then push it to a Azure Container Registry
 * Setup an Azure Web app and configure a CD pipeline in VSTS
 
@@ -21,6 +22,8 @@ In this lab, you will
 1. **Microsoft Azure Account**: You need a valid and active azure account for the labs.
 
 1. You need a **Visual Studio Team Services Account** and [Personal Access Token](https://docs.microsoft.com/en-us/vsts/accounts/use-personal-access-tokens-to-authenticate)
+
+1. You will need the [**Docker Integration**](https://marketplace.visualstudio.com/items?itemName=ms-vscs-rm.docker) extension installed and enabled on your Team Services account.
 
 1. You will need a desktop station. Click on **Deploy to Azure** to provision a Ubuntu VM pre-installed with Eclipse, Docker, Jenkins, and all other software required to run this lab.
 
@@ -36,21 +39,22 @@ In this lab, you will
 
 1. Use <a href="https://vstsdemobuildertest.azurewebsites.net/?TemplateId=77373&Name=myshuttledocker" target="_blank">VSTS Demo Data Generator</a> to provision a project on your VSTS account.
 
-1. Select the **MyShuttle-Java** for the template.
+1. Select the **MyShuttleDocker** for the template.
 
  ![VSTS Demo Generator](images/vstsdemogen.png)
 
-3. Provide a project name and click **Create Project** to start provisioning. Once the project is provisioned, select the URL to navigate to the project that you provisioned.
+3. Provide a project name and click **Create Project** to start provisioning. 
+
+4. Once the project is provisioned, select the URL to navigate to the project that you provisioned.
 
 1. You will see the work items, source code and CI/CD definitions already populated by the demo generator.
     ![VSTS Dashboard](images/vstsdashboard.png "MyShuttle Project in VSTS")
 
 1. Navigate to the **Code** hub. You will find the code for the MyShuttle application created and populated by the demo generator system. We will import this to our dev workstation  in our next exercise.
 
-
 ## Exercise 2: Setting up Eclipse
 
-Having VSTS setup, we will now log in to the virtual machine and set up Eclipse 
+Having setup Team Services project, we will now log in to the virtual machine and set up Eclipse 
 
 1. If you have not already, log in to the virtual machine
 
@@ -60,7 +64,7 @@ Having VSTS setup, we will now log in to the virtual machine and set up Eclipse
 
 1. The first time you run Eclipse, it will prompt you to choose a workspace. Specify a folder and click on the box **"Use this as the default and do not ask again"** if you want to Eclipse use that as default and not prompt you again.
 
-1. We will install **Team Explorer Everywhere (TEE)**, the official plug-in for Eclipse from Microsoft to connect VSTS/TFS with Eclipse-based IDE on any platform. It is supported on Linux, Mac OS X, and Windows and is compatible with IDEs that are based on Eclipse 4.2 to 4.6.
+    We will install **Team Explorer Everywhere (TEE)**, the official plug-in for Eclipse from Microsoft to connect Team Services and Team Foundation Server with Eclipse-based IDE on any platform. It is supported on Linux, Mac OS X, and Windows and is compatible with IDEs that are based on Eclipse 4.2 to 4.6. We will also install **Azure Toolkit for Eclipse**. The Azure Toolkit for Eclipse provides templates and functionality that allow you to easily create, develop, test, and deploy cloud applications to Azure from the Eclipse development environment.
 
 1. After Eclipse has started, select **Help** | **Install New Software** to bring the install dialog page
 
@@ -70,7 +74,7 @@ Having VSTS setup, we will now log in to the virtual machine and set up Eclipse
 
 1. Choose the **OK** button.
 
-1. In the list of features in the Install dialog box, select the check box that corresponds to the Team Explorer Everywhere plugin. 
+1. In the list of features in the Install dialog box, select the check box that corresponds to the Team Explorer Everywhere plugin and Azure Toolkit for Java.
 
     ![Select Team Explorer Everywhere](images/SelectTee.cropped.png "Select Team Explorer Everywhere")
 
@@ -83,6 +87,8 @@ Having VSTS setup, we will now log in to the virtual machine and set up Eclipse
 1. Search for **Team Explorer**, select the **Team Explorer** View, and select **OK**.
 
     ![Checkout from Team Services Git](images/showtee2.png "Checkout from Team Services Git")
+
+1. Next, select **Windows > Show View** and select **Other...**. Search for **Azure
 
 1. From the **Team Explorer** view, choose the radio button next to **Connect to a Team Foundation Server or Team Services account** then type in the name of the VSTS account (`https://{your-account-name}.visualstudio.com`) and press the **Next** button
 

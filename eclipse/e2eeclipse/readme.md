@@ -91,7 +91,7 @@ In this task you will enforce quality on the master branch by creating branch po
 
     ![Policy configuration](images/policy.png)
 
-    > **Note**: You can enforce other policy options like comment resolution and minumum number of reviewers, as well as specify the merge options (like squashing). You can also add default reviewers.
+    > **Note**: You can enforce other policy options like comment resolution and minimum number of reviewers, as well as specify the merge options (like squashing). You can also add default reviewers.
 
 ## Fix the Bug
 
